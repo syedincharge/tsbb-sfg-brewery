@@ -72,10 +72,10 @@ class BeerOrderControllerTest {
         return null;
     }
 
-//    @AfterEach
-//    void tearDown(){
-//        reset(beerOrderService);
-//    }
+    @AfterEach
+    void tearDown(){
+        reset(beerOrderService);
+    }
 
     @Test
     void listOrders() throws Exception {
