@@ -136,7 +136,7 @@ class BeerControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.content", hasSize(1)));
-        //        .andExpect(jsonPath("$.content[0].id", is(validBeer.getId().toString())));
+               // .andExpect(jsonPath("$.content[0].id", is(validBeer.getId().toString())));
 
 
        }

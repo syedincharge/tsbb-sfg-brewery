@@ -4,6 +4,7 @@ import com.rizvi.spring.domain.*;
 import com.rizvi.spring.repositories.*;
 import com.rizvi.spring.web.model.BeerStyleEnum;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.jdbc.support.CustomSQLErrorCodesTranslation;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +17,7 @@ import java.util.UUID;
 
 @Slf4j
 @Component
-public class DefaultBreweryLoader {
+public class DefaultBreweryLoader implements CommandLineRunner {
 
 
     private final BreweryRepository breweryRepository;
@@ -32,7 +33,7 @@ public class DefaultBreweryLoader {
         this.beerOrderRepository = beerOrderRepository;
         this.customerRepository = customerRepository;
     }
-
+    //@Override
     public void run(String... args) throws Exception {
         loadBreweryData();
     }
@@ -90,8 +91,6 @@ public class DefaultBreweryLoader {
                     .build();
 
             beerRepository.save(pinBall);
-
-
             beerInventoryRepository.save(BeerInventory.builder()
                     .beer(pinBall)
                     .quantityOnHand(100)
@@ -102,19 +101,19 @@ public class DefaultBreweryLoader {
                      .customerName("Test 1").apiKey(UUID.randomUUID())
                      .build());
 
-         Set<BeerOrderLine> orderLine1 = new HashSet<>();
-         orderLine1.add(BeerOrderLine.builder().beer(galaxyCat).orderQuantity(15).quantityAllocated(0).build());
-         orderLine1.add(BeerOrderLine.builder().beer(pinBall).orderQuantity(7).quantityAllocated(0).build());
+         Set<BeerOrderLine> orderLines1 = new HashSet<>();
+         orderLines1.add(BeerOrderLine.builder().beer(galaxyCat).orderQuantity(15).quantityAllocated(0).build());
+         orderLines1.add(BeerOrderLine.builder().beer(pinBall).orderQuantity(7).quantityAllocated(0).build());
 
          BeerOrder testOrder1 = beerOrderRepository.save(BeerOrder.builder()
                  .orderStatus(OrderStatusEnum.NEW)
                  .customer(testCustomer)
                  .customerRef("testOrder1")
-                 .orderStatusCallbackUrl("http;//example.com/post")
-                 .beerOrderLines(orderLine1)
+                 .orderStatusCallbackUrl("http://example.com/post")
+                 .beerOrderLines(orderLines1)
                  .build());
 
-         orderLine1.forEach(line ->line.setBeerOrder(testOrder1));
+         orderLines1.forEach(line ->line.setBeerOrder(testOrder1));
 
             log.debug("Beer Records loaded: {}", "beerRepository");
         }
