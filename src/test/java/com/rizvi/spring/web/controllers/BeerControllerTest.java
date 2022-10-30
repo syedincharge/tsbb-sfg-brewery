@@ -93,7 +93,7 @@ class BeerControllerTest {
 
      @DisplayName("List - Ops")
      @Nested
-     public class TestLustOperations{
+     public class TestListOperations{
 
         @Captor
          ArgumentCaptor<String> beerNameCaptor;
@@ -136,19 +136,21 @@ class BeerControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.content", hasSize(1)));
-               // .andExpect(jsonPath("$.content[0].id", is(validBeer.getId().toString())));
+        // .andExpect(jsonPath("$.content[0].id", is(validBeer.getId().toString())));
 
-
-       }
+          }
     }
 
-//    public MappingJackson2HttpMessageConverter jackson2HttpMessageConverter(){
-//        ObjectMapper objectMapper = new ObjectMapper();
+
+
+
+   public MappingJackson2HttpMessageConverter jackson2HttpMessageConverter(){
+        ObjectMapper objectMapper = new ObjectMapper();
 //        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 //        objectMapper.configure(SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS, true);
 //        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 //
 //        objectMapper.registerModule(new JavaTimeModule());
-//        return new MappingJackson2HttpMessageConverter(objectMapper);
-//    }
+        return new MappingJackson2HttpMessageConverter(objectMapper);
+   }
 }
